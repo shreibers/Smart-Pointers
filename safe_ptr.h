@@ -12,13 +12,13 @@ public:
     SafePtr(SafePtr& other);
     SafePtr& operator=(SafePtr& other);
     T* get() const;
-    T operator*();
-    T* operator->();
+    T operator*()const ;
+    T* operator->()const ;
 
 private:
     T* m_ptr;
 
-    friend class Test;
+    friend class TestSafePtr;
 };
 
 
@@ -51,12 +51,12 @@ T* SafePtr<T>::get() const {
 }
 
 template <class T>
-T SafePtr<T>::operator*() {
+T SafePtr<T>::operator*() const {
     return *m_ptr;
 }
 
 template <class T>
-T* SafePtr<T>::operator->() {
+T* SafePtr<T>::operator->() const {
     return m_ptr;
 }
 

@@ -3,11 +3,17 @@
 
 int main() {
 
-    Test test;
-    test.test_copy_ctor();
-    test.test_assigment_operator();
-    test.test_operator_asterisk();
-    test.test_operator_arrow();
+    TestSafePtr testSafePtr;
+    testSafePtr.test_copy_ctor();
+    testSafePtr.test_assigment_operator();
+    testSafePtr.test_operator_asterisk();
+    testSafePtr.test_operator_arrow();
+
+    TestUniquePtr testUniquePtr;
+    testUniquePtr.test_copy_ctor();
+    testUniquePtr.test_assigment_operator();
+    testUniquePtr.test_operator_asterisk();
+    testUniquePtr.test_operator_arrow();
 
     return 0;
 }
