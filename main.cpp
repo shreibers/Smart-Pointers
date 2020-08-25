@@ -15,5 +15,11 @@ int main() {
     testUniquePtr.test_operator_asterisk();
     testUniquePtr.test_operator_arrow();
 
+    TestSharedPtr testSharedPtr;
+    testSharedPtr.test_copy_ctor();
+    testSharedPtr.test_assigment_operator();
+    testSharedPtr.test_operator_asterisk();
+    testSharedPtr.test_operator_arrow();
+
     return 0;
 }

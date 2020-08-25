@@ -7,11 +7,13 @@
 template <class T>
 class SafePtr{
 public:
-    explicit SafePtr(T* ptr);
+    explicit SafePtr(T* ptr = NULL);
     ~SafePtr();
     SafePtr(SafePtr& other);
+
     SafePtr& operator=(SafePtr& other);
     T* get() const;
+
     T operator*()const ;
     T* operator->()const ;
 

@@ -2,6 +2,7 @@
 
 #include "safe_ptr.h"
 #include "unique_ptr.h"
+#include "shared_ptr.h"
 #include "test.h"
 
 typedef struct testPtr{
@@ -15,12 +16,7 @@ void TestSafePtr::test_copy_ctor() {
     SafePtr<int> safePtr(new int());
     int* ptr = safePtr.m_ptr;
     SafePtr<int> safePtr2 = safePtr;
-    if(safePtr2.m_ptr == ptr && !safePtr.m_ptr){
-        std::cout<<"copy_ctor ok"<<std::endl;
-    }
-    else{
-        std::cout<<"copy_ctor failed"<<std::endl;
-    }
+    std::cout<< ((safePtr2.m_ptr == ptr && !safePtr.m_ptr) ? "copy_ctor ok" : "copy_ctor failed") << std::endl;
 
 }
 
@@ -30,23 +26,16 @@ void TestSafePtr::test_assigment_operator() {
     SafePtr<int> safePtr2(new int());
     int* ptr = safePtr.m_ptr;
     safePtr2 = safePtr;
-    if(safePtr2.m_ptr == ptr && !safePtr.m_ptr){
-        std::cout<<"assigment_operator ok"<<std::endl;
-    }
-    else{
-        std::cout<<"assigment_operator failed"<<std::endl;
-    }
+
+    std::cout<< ((safePtr2.m_ptr == ptr && !safePtr.m_ptr) ? "assigment_operator ok" : "assigment_operator failed") << std::endl;
+
 }
 
 void TestSafePtr::test_operator_asterisk() {
 
     SafePtr<int> safePtr(new int(10));
-    if(*safePtr == 10){
-        std::cout<<"operator_asterisk ok"<<std::endl;
-    }
-    else{
-        std::cout<<"operator_asterisk failed"<<std::endl;
-    }
+    std::cout<< ((*safePtr == 10) ? "operator_asterisk ok" : "operator_asterisk failed") << std::endl;
+
 }
 
 void TestSafePtr::test_operator_arrow() {
@@ -54,12 +43,8 @@ void TestSafePtr::test_operator_arrow() {
     testPtr* ptr = new testPtr;
     ptr->num = 10;
     SafePtr<testPtr> sp(ptr);
-    if(sp->num == 10){
-        std::cout<<"operator_arrow ok"<<std::endl;
-    }
-    else{
-        std::cout<<"operator_arrow failed"<<std::endl;
-    }
+    std::cout<< ((sp->num == 10) ? "operator_arrow ok" : "operator_arrow failed") << std::endl;
+
 }
 
 
@@ -79,22 +64,57 @@ void TestUniquePtr::test_assigment_operator(){
 
 void TestUniquePtr::test_operator_asterisk(){
     UniquePtr<int> uniquePtr(new int(10));
-    if(*uniquePtr == 10){
-        std::cout<<"operator_asterisk ok"<<std::endl;
-    }
-    else{
-        std::cout<<"operator_asterisk failed"<<std::endl;
-    }
+    std::cout<< ((*uniquePtr == 10) ? "operator_asterisk ok" : "operator_asterisk failed") << std::endl;
 }
 
 void TestUniquePtr::test_operator_arrow(){
     testPtr* ptr = new testPtr;
     ptr->num = 10;
     UniquePtr<testPtr> up(ptr);
-    if(up->num == 10){
-        std::cout<<"operator_arrow ok"<<std::endl << std::endl;
-    }
-    else{
-        std::cout<<"operator_arrow failed"<<std::endl << std::endl;
-    }
+    std::cout<< ((up->num == 10) ? "operator_arrow ok" : "operator_arrow failed") << std::endl;
+
+}
+
+//Tests of SharedPtr class
+void TestSharedPtr::test_copy_ctor() {
+    std::cout << std::endl << "*****Test SharedPtr class*****" << std::endl << std::endl ;
+
+    SharedPtr<int> sharedPtr(new int());
+    size_t count_m_ptr = *(sharedPtr.m_counter);
+
+    SharedPtr<int> sharedPtr2 = sharedPtr;
+    std::cout<< ((sharedPtr2.m_ptr == sharedPtr.m_ptr )&&
+                         (*(sharedPtr2.m_counter) == *(sharedPtr.m_counter))&&(*(sharedPtr.m_counter) == (count_m_ptr + 1)) ?
+    "copy_ctor ok" : "copy_ctor failed") << std::endl;
+
+}
+
+void TestSharedPtr::test_assigment_operator() {
+    SharedPtr<int> sharedPtr(new int());
+    SharedPtr<int> sharedPtr2(new int(5));
+    size_t count_ptr1 = *(sharedPtr.m_counter);
+//    size_t* temp_ptr = sharedPtr2.m_counter;
+
+    sharedPtr2 = sharedPtr;
+
+    std::cout<< (((sharedPtr2.m_ptr == sharedPtr.m_ptr) &&
+    (*(sharedPtr2.m_counter) == *(sharedPtr.m_counter)) &&
+    (*(sharedPtr2.m_counter) == (count_ptr1 + 1)))?
+    "assigment_operator ok" : "assigment_operator failed") << std::endl;
+}
+
+void TestSharedPtr::test_operator_asterisk() {
+
+    SharedPtr<int> sharedPtr(new int(10));
+    std::cout << ((*sharedPtr == 10) ? "operator_asterisk ok" : "operator_asterisk failed") << std::endl;
+
+}
+
+void TestSharedPtr::test_operator_arrow() {
+
+    testPtr* ptr = new testPtr;
+    ptr->num = 10;
+    SharedPtr<testPtr> sp(ptr);
+    std::cout<< ((sp->num == 10) ? "operator_arrow ok" : "operator_arrow failed") << std::endl;
+
 }
