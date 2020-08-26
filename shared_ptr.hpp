@@ -13,10 +13,6 @@ SharedPtr<T>::SharedPtr(SharedPtr<U>& other):m_ptr(other.m_ptr), m_counter(other
     ++(*m_counter);
 }
 
-template <class T>
-T* SharedPtr<T>::get_ptr() const{
-    return m_ptr;
-}
 
 template <class T>
 template <class U>
@@ -44,6 +40,11 @@ T SharedPtr<T>::operator*() const {
 
 template <class T>
 T* SharedPtr<T>::operator->() const {
+    return m_ptr;
+}
+
+template <class T>
+T* SharedPtr<T>::get_ptr() const{
     return m_ptr;
 }
 
