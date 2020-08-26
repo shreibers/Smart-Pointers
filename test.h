@@ -29,5 +29,16 @@ public:
 
 };
 
+class Base{
+private:
+    int m_b;
+};
+
+
+class Der:public Base{
+private:
+    int m_d;
+};
+
 
 #endif //SMARTPOINTERS_TEST_H

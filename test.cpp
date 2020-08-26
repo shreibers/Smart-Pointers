@@ -79,28 +79,27 @@ void TestUniquePtr::test_operator_arrow(){
 void TestSharedPtr::test_copy_ctor() {
     std::cout << std::endl << "*****Test SharedPtr class*****" << std::endl << std::endl ;
 
-    SharedPtr<int> sharedPtr(new int());
+    SharedPtr<Der> sharedPtr(new Der());
     size_t count_m_ptr = *(sharedPtr.m_counter);
 
-    SharedPtr<int> sharedPtr2 = sharedPtr;
+    SharedPtr<Base> sharedPtr2 = sharedPtr;
     std::cout<< ((sharedPtr2.m_ptr == sharedPtr.m_ptr )&&
-                         (*(sharedPtr2.m_counter) == *(sharedPtr.m_counter))&&(*(sharedPtr.m_counter) == (count_m_ptr + 1)) ?
-    "copy_ctor ok" : "copy_ctor failed") << std::endl;
+                 (*(sharedPtr2.m_counter) == *(sharedPtr.m_counter))&&(*(sharedPtr.m_counter) == (count_m_ptr + 1)) ?
+                 "copy_ctor ok" : "copy_ctor failed") << std::endl;
 
 }
 
 void TestSharedPtr::test_assigment_operator() {
-    SharedPtr<int> sharedPtr(new int());
-    SharedPtr<int> sharedPtr2(new int(5));
+    SharedPtr<Der> sharedPtr(new Der());
+    SharedPtr<Base> sharedPtr2(new Base());
     size_t count_ptr1 = *(sharedPtr.m_counter);
-//    size_t* temp_ptr = sharedPtr2.m_counter;
 
     sharedPtr2 = sharedPtr;
 
     std::cout<< (((sharedPtr2.m_ptr == sharedPtr.m_ptr) &&
-    (*(sharedPtr2.m_counter) == *(sharedPtr.m_counter)) &&
-    (*(sharedPtr2.m_counter) == (count_ptr1 + 1)))?
-    "assigment_operator ok" : "assigment_operator failed") << std::endl;
+                  (*(sharedPtr2.m_counter) == *(sharedPtr.m_counter)) &&
+                  (*(sharedPtr2.m_counter) == (count_ptr1 + 1)))?
+                 "assigment_operator ok" : "assigment_operator failed") << std::endl;
 }
 
 void TestSharedPtr::test_operator_asterisk() {

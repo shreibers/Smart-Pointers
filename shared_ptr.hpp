@@ -1,5 +1,4 @@
 
-
 template <class T>
 SharedPtr<T>::SharedPtr(T* ptr):m_ptr(ptr), m_counter(new size_t(1)){}
 
@@ -9,7 +8,8 @@ SharedPtr<T>::~SharedPtr(){
 }
 
 template <class T>
-SharedPtr<T>::SharedPtr(SharedPtr& other):m_ptr(other.m_ptr), m_counter(other.m_counter){
+template <class U>
+SharedPtr<T>::SharedPtr(SharedPtr<U>& other):m_ptr(other.m_ptr), m_counter(other.m_counter){
     ++(*m_counter);
 }
 
@@ -19,8 +19,9 @@ T* SharedPtr<T>::get_ptr() const{
 }
 
 template <class T>
-SharedPtr<T>& SharedPtr<T>::operator=(SharedPtr<T>& other){
-    if(this == &other){
+template <class U>
+SharedPtr<T>& SharedPtr<T>::operator=(SharedPtr<U>& other){
+    if(this->m_ptr == other.m_ptr){
         return *this;
     }
 
